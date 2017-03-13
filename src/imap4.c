@@ -143,11 +143,6 @@ void imap_cleanup_deferred(gpointer data)
 	ClientBase_T *ci = session->ci;
 
 	if (ci->rev) event_del(ci->rev);
-	if (ci_wbuf_len(ci)) {
-		ci_write_cb(ci);
-		dm_queue_push(imap_cleanup_deferred, session, NULL);
-		return;
-	}
 
 	rx = ci->rx;
 	ci_close(ci);
